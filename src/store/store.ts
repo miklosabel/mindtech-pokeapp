@@ -1,9 +1,11 @@
 import { configureStore } from '@reduxjs/toolkit';
 import { pokemonApi } from './../services/services';
+import { caughtPokemonsSlice } from './caughtPokemons/caughtPokemonsSlice';
 
 const store = configureStore({
   reducer: {
 		[pokemonApi.reducerPath]: pokemonApi.reducer,
+		caughtPokemons: caughtPokemonsSlice.reducer,
 	},
 	middleware: getDefaultMiddleware => getDefaultMiddleware().concat(pokemonApi.middleware)
 })
