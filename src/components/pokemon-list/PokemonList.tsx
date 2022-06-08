@@ -1,47 +1,65 @@
-import { FunctionComponent } from 'react';
+import { Alert, AlertTitle, CircularProgress, Grid, Paper, styled } from '@mui/material';
+import { FunctionComponent, useState } from 'react';
 import { useGetPokemonListByTypeQuery } from '../../services/services';
-import { catchPokemon, releasePokemon } from '../../store/caughtPokemons/caughtPokemonsSlice';
-import { useAppDispatch, useAppSelector } from '../../store/hooks';
+import { useAppSelector } from '../../store/hooks';
+import PokemonProfile from '../pokemon-profile/PokemonProfile';
 import './PokemonList.scss';
 
 interface PokemonListProps {
 	pokemonType: string;
 }
 
+const Item = styled(Paper)`
+	text-align: center;
+	padding: 8px;
+`
+
 const PokemonList: FunctionComponent<PokemonListProps> = (props: PokemonListProps) => {
 
+	const [selectedPokemon, setSelectedPokemon] = useState<string>('');
+
+	// fetched pokemontype related data
 	const { data, error, isLoading } = useGetPokemonListByTypeQuery(props.pokemonType);
 	const pokemonNames = data?.pokemon.map(pokemon => pokemon.pokemon.name);
-	const dispatch = useAppDispatch();
+
+	// caught style logic
 	const caughtPokemons = useAppSelector(state => state.caughtPokemons)
+	const isCaught = (pokemonName: string): boolean =>
+		caughtPokemons.includes(pokemonName) ? true : false;
 
-	const callCatchPokemon = (pokemonName: string) => {
-		dispatch(catchPokemon({ pokemonName }))
-	}
 
-	const callReleasePokemon = (pokemonName: string) => {
-		dispatch(releasePokemon({ pokemonName }))
-	}
-
-	const isCaught = (pokemonName: string): string => {
-		if (caughtPokemons.includes(pokemonName)) return 'caught';
-		return '';
-	}
-
-	return <>
-		<p>
-			{props.pokemonType}
-		</p>
-		{pokemonNames?.map((name: string) =>
-			<p
-				key={name}
-				onClick={() => callReleasePokemon(name)}
-				// onClick={() => callCatchPokemon(name)}
-				className={isCaught(name)}>
-				{name}
-			</p>
-		)}
-	</>
+	// render
+	return isLoading
+		? <CircularProgress />
+		: (error ?
+			<Alert severity="error">
+				<AlertTitle>Error</AlertTitle>
+				Pokemons cannot be loaded!
+			</Alert>
+			: (
+				<>
+					<Grid container spacing={8}>
+						{pokemonNames?.map((name: string) =>
+							<Grid
+								item
+								xs={8}
+								key={name}
+							>
+								<Item
+									sx={{
+										backgroundColor: isCaught(name) ? 'red' : "#fff",
+									}}
+									onClick={() => setSelectedPokemon(name)}
+								>
+									{name}
+								</Item>
+							</Grid>
+						)}
+					</Grid>
+					<PokemonProfile selectedPokemon={selectedPokemon} setSelectedPokemon={setSelectedPokemon} />
+				</>
+			)
+		)
 }
 
 export default PokemonList;
