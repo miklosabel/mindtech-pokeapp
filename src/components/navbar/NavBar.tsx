@@ -10,7 +10,14 @@ const NavBar: FunctionComponent = () => {
 		<>
 			<div className="navbar">
 				<ul>
-					{PokemonTypeNames.map((typeName) => <li key={typeName}><NavLink to={'/' + typeName}>{typeName}</NavLink></li>)}
+					{PokemonTypeNames.map(
+						typeName =>
+							<li key={typeName}>
+								<NavLink to={'/' + typeName}>
+									{typeName}
+								</NavLink>
+							</li>
+					)}
 				</ul>
 			</div>
 		</>
