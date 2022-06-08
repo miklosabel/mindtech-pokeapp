@@ -38,11 +38,14 @@ const PokemonList: FunctionComponent<PokemonListProps> = (props: PokemonListProp
 			</Alert>
 			: (
 				<>
-					<Grid container spacing={8}>
+					<Grid container spacing={2}>
 						{pokemonNames?.map((name: string) =>
 							<Grid
 								item
-								xs={8}
+								xs={12}
+								sm={6}
+								md={4}
+								lg={3}
 								key={name}
 							>
 								<Item
