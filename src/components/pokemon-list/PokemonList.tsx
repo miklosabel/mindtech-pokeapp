@@ -28,6 +28,7 @@ const PokemonList: FunctionComponent<PokemonListProps> = (props: PokemonListProp
 		caughtPokemons.includes(pokemonName) ? true : false;
 
 	const shouldShowOnlyCaughtPokemons = useAppSelector(state => state.showOnlyCaughtPokemons.flag)
+	const pokemonSearchString = useAppSelector(state => state.searchPokemon.searchString)
 
 	const renderAlert = (
 		<Alert severity="error">
@@ -51,8 +52,8 @@ const PokemonList: FunctionComponent<PokemonListProps> = (props: PokemonListProp
 			<Grid container spacing={2}>
 				{
 					shouldShowOnlyCaughtPokemons
-						? caughtPokemons.map((name: string) => renderPokemonList(name))
-						: pokemonNames?.map((name: string) => renderPokemonList(name))
+						? caughtPokemons.filter(x => x.startsWith(pokemonSearchString)).map((name: string) => renderPokemonList(name))
+						: pokemonNames?.filter(x => x.startsWith(pokemonSearchString)).map((name: string) => renderPokemonList(name))
 				}
 			</Grid >
 			<PokemonProfile selectedPokemon={selectedPokemon} setSelectedPokemon={setSelectedPokemon} />

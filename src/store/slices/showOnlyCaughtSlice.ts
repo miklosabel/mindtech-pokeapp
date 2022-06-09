@@ -1,5 +1,6 @@
 
 import { createSlice } from '@reduxjs/toolkit';
+import { pokemonApi } from '../../services/services';
 
 interface State {
 	flag: boolean;
@@ -19,6 +20,12 @@ export const shouldShowOnlyCaughtPokemonsSlice = createSlice({
 		switchFlag: (state: State, action: ShowOnlyCaughtActionType) => {
 			state.flag = action.payload
 		}
+	},
+	extraReducers: (builder) => {
+		builder.addMatcher(
+			pokemonApi.endpoints.getPokemonListByType.matchFulfilled,
+			(state) => { state.flag = false }
+		)
 	}
 })
 

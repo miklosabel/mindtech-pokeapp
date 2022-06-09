@@ -1,6 +1,6 @@
 import MenuIcon from "@mui/icons-material/Menu";
 import SearchIcon from "@mui/icons-material/Search";
-import { FormControlLabel, FormGroup, MenuItem, Typography } from "@mui/material";
+import { FormControlLabel, FormGroup, MenuItem } from "@mui/material";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import Checkbox from "@mui/material/Checkbox";
@@ -9,11 +9,11 @@ import InputBase from "@mui/material/InputBase";
 import Menu from "@mui/material/Menu";
 import { alpha, styled } from "@mui/material/styles";
 import Toolbar from "@mui/material/Toolbar";
-import { FunctionComponent, useState } from "react";
+import { ChangeEvent, FunctionComponent, useState } from "react";
 import { NavLink } from "react-router-dom";
 import { PokemonTypeNames } from "../../interface";
 import { useAppDispatch, useAppSelector } from "../../store/hooks";
-import { switchFlag } from './../../store/showOnlyCaughtSlice';
+import { setPokemonSearchString } from "../../store/slices/searchPokemonSlice";
 import { switchFlag } from '../../store/slices/showOnlyCaughtSlice';
 
 const Search = styled("div")(({ theme }) => ({
@@ -26,7 +26,7 @@ const Search = styled("div")(({ theme }) => ({
 	marginRight: theme.spacing(2),
 	marginLeft: theme.spacing(3),
 	width: "auto",
-	[theme.breakpoints.up('lg')]: {
+	[theme.breakpoints.up('md')]: {
 		width: "50%",
 	}
 }));
@@ -67,19 +67,23 @@ const Appbar: FunctionComponent = () => {
 	const isMenuOpen = Boolean(anchorEl);
 
 	const showOnlyCaughtPokemons = useAppSelector(state => state.showOnlyCaughtPokemons.flag);
+	const pokemonSearchString = useAppSelector(state => state.searchPokemon.searchString)
 	const dispatch = useAppDispatch()
 
-	const handleCheckboxChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-		dispatch(switchFlag(event.target.checked))
-	};
+	const handleCheckboxChange = (event: ChangeEvent<HTMLInputElement>) => {
+		dispatch(switchFlag(event.target.checked));
+		dispatch(setPokemonSearchString(''));
+}
 
-	const handleMenuOpen = (event: React.MouseEvent<HTMLElement>) => {
+	const handleMenuOpen = (event: React.MouseEvent<HTMLElement>) => 
 		setAnchorEl(event.currentTarget);
-	};
+	
 
-	const handleMenuClose = () => {
-		setAnchorEl(null);
-	};
+	const handleMenuClose = () => setAnchorEl(null);
+	
+
+	const handleSearchInputChange = (event: ChangeEvent<HTMLInputElement>) =>
+		dispatch(setPokemonSearchString(event.target.value))
 
 	const renderMenu = (
 		<Menu
@@ -98,7 +102,6 @@ const Appbar: FunctionComponent = () => {
 		>
 			{PokemonTypeNames.map(
 				typeName =>
-					<MenuItem key={typeName} onClick={() => setCurrentPokemonType(typeName)}>
 						<NavLink key={typeName} to={'/' + typeName}>
 							{typeName}
 						</NavLink>
@@ -122,7 +125,6 @@ const Appbar: FunctionComponent = () => {
 							<MenuIcon />
 						</IconButton>
 					</Box>
-					<Box>
 						<Typography
 							variant="h6"
 							noWrap
@@ -130,11 +132,11 @@ const Appbar: FunctionComponent = () => {
 							sx={{
 								display: { xs: 'none', sm: 'block' },
 								paddingLeft: 6,
+								width: 180,
 							}}
 						>
 							{showOnlyCaughtPokemons ? 'Caught pokemons' : currentPokemonType}
 						</Typography>
-					</Box>
 					<Box sx={{ flexGrow: 1 }} />
 					<Search>
 						<SearchIconWrapper>
@@ -143,6 +145,8 @@ const Appbar: FunctionComponent = () => {
 						<StyledInputBase
 							placeholder="Search..."
 							inputProps={{ "aria-label": "search" }}
+							onChange={handleSearchInputChange}
+							value={pokemonSearchString}
 						/>
 					</Search>
 					<Box sx={{ flexGrow: 1 }} />
