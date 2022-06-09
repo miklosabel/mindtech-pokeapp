@@ -5,7 +5,7 @@ interface State {
 	flag: boolean;
 }
 
-const initialState = {
+const initialState: State = {
 	flag: false
 }
 interface ShowOnlyCaughtActionType {
@@ -17,8 +17,7 @@ export const shouldShowOnlyCaughtPokemonsSlice = createSlice({
 	initialState,
 	reducers: {
 		switchFlag: (state: State, action: ShowOnlyCaughtActionType) => {
-			const newValue = action.payload
-			state.flag = newValue
+			state.flag = action.payload
 		}
 	}
 })

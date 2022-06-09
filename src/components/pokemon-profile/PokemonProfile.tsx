@@ -1,8 +1,8 @@
 import { Button, Card, CardContent, CardMedia, CircularProgress, Modal, Typography } from "@mui/material";
 import { FunctionComponent } from "react";
 import { useGetPokemonDataByNameQuery } from "../../services/services";
-import { catchPokemon, releasePokemon } from "../../store/caughtPokemons/caughtPokemonsSlice";
 import { useAppDispatch, useAppSelector } from "../../store/hooks";
+import { catchPokemon, releasePokemon } from "../../store/slices/caughtPokemonsSlice";
 
 
 export interface PokemonProfileProps {

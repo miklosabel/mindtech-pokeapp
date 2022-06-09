@@ -1,7 +1,7 @@
 import { configureStore } from '@reduxjs/toolkit';
 import { pokemonApi } from './../services/services';
-import { caughtPokemonsSlice } from './caughtPokemons/caughtPokemonsSlice';
-import { shouldShowOnlyCaughtPokemonsSlice } from './showOnlyCaughtSlice';
+import { caughtPokemonsSlice } from './slices/caughtPokemonsSlice';
+import { shouldShowOnlyCaughtPokemonsSlice } from './slices/showOnlyCaughtSlice';
 
 const store = configureStore({
   reducer: {
