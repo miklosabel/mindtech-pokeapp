@@ -62,7 +62,6 @@ const StyledFormGroup = styled(FormGroup)(({ theme }) => ({
 
 const Appbar: FunctionComponent = () => {
 	const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
-	const [currentPokemonType, setCurrentPokemonType] = useState<string>('');
 
 	const isMenuOpen = Boolean(anchorEl);
 
@@ -102,6 +101,7 @@ const Appbar: FunctionComponent = () => {
 		>
 			{PokemonTypeNames.map(
 				typeName =>
+					<MenuItem key={typeName} onClick={handleMenuClose}>
 						<NavLink key={typeName} to={'/' + typeName}>
 							{typeName}
 						</NavLink>
@@ -125,18 +125,6 @@ const Appbar: FunctionComponent = () => {
 							<MenuIcon />
 						</IconButton>
 					</Box>
-						<Typography
-							variant="h6"
-							noWrap
-							component="div"
-							sx={{
-								display: { xs: 'none', sm: 'block' },
-								paddingLeft: 6,
-								width: 180,
-							}}
-						>
-							{showOnlyCaughtPokemons ? 'Caught pokemons' : currentPokemonType}
-						</Typography>
 					<Box sx={{ flexGrow: 1 }} />
 					<Search>
 						<SearchIconWrapper>

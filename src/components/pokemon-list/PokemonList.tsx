@@ -1,8 +1,8 @@
-import { Alert, AlertTitle, CircularProgress, Grid, Paper, styled } from '@mui/material';
+import { Alert, AlertTitle, CircularProgress, Grid, Paper, styled, Typography } from '@mui/material';
 import { FunctionComponent, useState } from 'react';
 import { useGetPokemonListByTypeQuery } from '../../services/services';
 import { useAppSelector } from '../../store/hooks';
-import PokemonProfile from '../pokemon-profile/PokemonProfile';
+import PokemonProfileModal from '../pokemon-profile/PokemonProfile';
 import './PokemonList.scss';
 
 interface PokemonListProps {
@@ -22,7 +22,6 @@ const PokemonList: FunctionComponent<PokemonListProps> = (props: PokemonListProp
 	const { data, error, isLoading } = useGetPokemonListByTypeQuery(props.pokemonType);
 	const pokemonNames = data?.pokemon.map(pokemon => pokemon.pokemon.name);
 
-	// caught style logic
 	const caughtPokemons = useAppSelector(state => state.caughtPokemons)
 	const isCaught = (pokemonName: string): boolean =>
 		caughtPokemons.includes(pokemonName) ? true : false;
@@ -36,6 +35,7 @@ const PokemonList: FunctionComponent<PokemonListProps> = (props: PokemonListProp
 			Pokemons cannot be loaded!
 		</Alert>
 	)
+	
 	const renderPokemonList = (name: string) => (
 		<Grid item xs={12} sm={6} md={4} lg={3} key={name}>
 			<Item sx={{ backgroundColor: isCaught(name) ? 'red' : "#fff" }}
@@ -45,18 +45,41 @@ const PokemonList: FunctionComponent<PokemonListProps> = (props: PokemonListProp
 		</Grid>
 	)
 
-	if (isLoading) return <CircularProgress />;
-	else if (error) return renderAlert;
+	const renderHeader = (
+		<>
+			{props.pokemonType &&
+				<Typography variant='h4' noWrap component="div"
+					sx={{
+						marginTop: 2,
+						marginBottom: 2
+					}}>
+					{shouldShowOnlyCaughtPokemons
+						? 'Caught pokemons'
+						: `Current type: ${props.pokemonType}`}
+				</Typography>}
+		</>
+	)
+
+	const renderPokemonNames = (pokemons: string[] | undefined) => (
+		pokemons ? pokemons
+			.filter(name => name.startsWith(pokemonSearchString))
+			.map((name: string) => renderPokemonList(name))
+			: null
+	)
+
+	if (isLoading) return <CircularProgress />
+	else if (error) return renderAlert
 	else return (
 		<>
+			{renderHeader}
 			<Grid container spacing={2}>
 				{
 					shouldShowOnlyCaughtPokemons
-						? caughtPokemons.filter(x => x.startsWith(pokemonSearchString)).map((name: string) => renderPokemonList(name))
-						: pokemonNames?.filter(x => x.startsWith(pokemonSearchString)).map((name: string) => renderPokemonList(name))
+						? renderPokemonNames(caughtPokemons)
+						: renderPokemonNames(pokemonNames)
 				}
 			</Grid >
-			<PokemonProfile selectedPokemon={selectedPokemon} setSelectedPokemon={setSelectedPokemon} />
+			<PokemonProfileModal selectedPokemon={selectedPokemon} setSelectedPokemon={setSelectedPokemon} />
 		</>
 	)
 

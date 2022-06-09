@@ -10,7 +10,7 @@ export interface PokemonProfileProps {
 	setSelectedPokemon: (pokemonName: string) => void;
 }
 
-const PokemonProfile: FunctionComponent<PokemonProfileProps> = (props: PokemonProfileProps) => {
+const PokemonProfileModal: FunctionComponent<PokemonProfileProps> = (props: PokemonProfileProps) => {
 	const { data, error, isLoading } = useGetPokemonDataByNameQuery(props.selectedPokemon);
 
 	const dispatch = useAppDispatch();
@@ -77,4 +77,4 @@ const PokemonProfile: FunctionComponent<PokemonProfileProps> = (props: PokemonPr
 
 }
 
-export default PokemonProfile;
+export default PokemonProfileModal;
