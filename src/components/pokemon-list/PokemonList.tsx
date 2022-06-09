@@ -27,42 +27,38 @@ const PokemonList: FunctionComponent<PokemonListProps> = (props: PokemonListProp
 	const isCaught = (pokemonName: string): boolean =>
 		caughtPokemons.includes(pokemonName) ? true : false;
 
+	const shouldShowOnlyCaughtPokemons = useAppSelector(state => state.showOnlyCaughtPokemons.flag)
 
-	// render
-	return isLoading
-		? <CircularProgress />
-		: (error ?
-			<Alert severity="error">
-				<AlertTitle>Error</AlertTitle>
-				Pokemons cannot be loaded!
-			</Alert>
-			: (
-				<>
-					<Grid container spacing={2}>
-						{pokemonNames?.map((name: string) =>
-							<Grid
-								item
-								xs={12}
-								sm={6}
-								md={4}
-								lg={3}
-								key={name}
-							>
-								<Item
-									sx={{
-										backgroundColor: isCaught(name) ? 'red' : "#fff",
-									}}
-									onClick={() => setSelectedPokemon(name)}
-								>
-									{name}
-								</Item>
-							</Grid>
-						)}
-					</Grid>
-					<PokemonProfile selectedPokemon={selectedPokemon} setSelectedPokemon={setSelectedPokemon} />
-				</>
-			)
-		)
+	const renderAlert = (
+		<Alert severity="error">
+			<AlertTitle>Error</AlertTitle>
+			Pokemons cannot be loaded!
+		</Alert>
+	)
+	const renderPokemonList = (name: string) => (
+		<Grid item xs={12} sm={6} md={4} lg={3} key={name}>
+			<Item sx={{ backgroundColor: isCaught(name) ? 'red' : "#fff" }}
+				onClick={() => setSelectedPokemon(name)}>
+				{name}
+			</Item>
+		</Grid>
+	)
+
+	if (isLoading) return <CircularProgress />;
+	else if (error) return renderAlert;
+	else return (
+		<>
+			<Grid container spacing={2}>
+				{
+					shouldShowOnlyCaughtPokemons
+						? caughtPokemons.map((name: string) => renderPokemonList(name))
+						: pokemonNames?.map((name: string) => renderPokemonList(name))
+				}
+			</Grid >
+			<PokemonProfile selectedPokemon={selectedPokemon} setSelectedPokemon={setSelectedPokemon} />
+		</>
+	)
+
 }
 
 export default PokemonList;
