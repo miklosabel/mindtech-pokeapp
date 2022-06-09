@@ -1,17 +1,21 @@
 import React, { FunctionComponent } from 'react';
 import { Route, Routes } from "react-router-dom";
 import PokemonList from '../../components/pokemon-list/PokemonList';
-import NavBar from './../../components/navbar/NavBar';
+import Appbar from './../../components/appbar/Appbar';
 import { PokemonTypeNames } from './../../interface';
 
 const Main: FunctionComponent = () => {
-
 	return (
 		<>
-			<NavBar />
+			<Appbar />
 			<div className="content">
 				<Routes>
-					<Route path="/" element={<><p>asdfljasld;jfa;lsdjf</p></>} />
+					<Route 
+					key='main' 
+					path="/" 
+					element={
+					<><p>Welcome to my pokemon page!</p></>
+					} />
 					{PokemonTypeNames.map(
 						(pokemonType) => (
 							<Route
