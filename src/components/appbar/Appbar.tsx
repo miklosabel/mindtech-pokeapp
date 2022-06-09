@@ -14,6 +14,7 @@ import { NavLink } from "react-router-dom";
 import { PokemonTypeNames } from "../../interface";
 import { useAppDispatch, useAppSelector } from "../../store/hooks";
 import { switchFlag } from './../../store/showOnlyCaughtSlice';
+import { switchFlag } from '../../store/slices/showOnlyCaughtSlice';
 
 const Search = styled("div")(({ theme }) => ({
 	position: "relative",
