@@ -1,66 +1,20 @@
 import MenuIcon from "@mui/icons-material/Menu";
 import SearchIcon from "@mui/icons-material/Search";
-import { FormControlLabel, FormGroup, MenuItem } from "@mui/material";
+import { FormControlLabel, MenuItem } from "@mui/material";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import Checkbox from "@mui/material/Checkbox";
 import IconButton from "@mui/material/IconButton";
-import InputBase from "@mui/material/InputBase";
 import Menu from "@mui/material/Menu";
-import { alpha, styled } from "@mui/material/styles";
 import Toolbar from "@mui/material/Toolbar";
 import { ChangeEvent, FunctionComponent, useState } from "react";
-import { NavLink } from "react-router-dom";
 import '../../App.scss';
 import { PokemonTypeNames } from "../../constants/constants";
 import { useAppDispatch, useAppSelector } from "../../store/hooks";
 import { setPokemonSearchString } from "../../store/slices/searchPokemonSlice";
 import { switchFlag } from '../../store/slices/showOnlyCaughtSlice';
 import './Appbar.scss';
-
-
-const Search = styled("div")(({ theme }) => ({
-	position: "relative",
-	borderRadius: theme.shape.borderRadius,
-	backgroundColor: alpha(theme.palette.common.white, 0.15),
-	"&:hover": {
-		backgroundColor: alpha(theme.palette.common.white, 0.25)
-	},
-	marginRight: theme.spacing(2),
-	marginLeft: theme.spacing(3),
-	width: "auto",
-	[theme.breakpoints.up('md')]: {
-		width: "50%",
-	}
-}));
-
-const SearchIconWrapper = styled("div")(({ theme }) => ({
-	padding: theme.spacing(0, 2),
-	height: "100%",
-	position: "absolute",
-	pointerEvents: "none",
-	display: "flex",
-	alignItems: "center",
-	justifyContent: "center"
-}));
-
-const StyledInputBase = styled(InputBase)(({ theme }) => ({
-	color: "inherit",
-	"& .MuiInputBase-input": {
-		// padding: theme.spacing(1, 1, 1, 0),
-		paddingLeft: `calc(1em + ${theme.spacing(4)})`,
-		transition: theme.transitions.create("width"),
-		width: "100%",
-	}
-}));
-
-const StyledFormGroup = styled(FormGroup)(({ theme }) => ({
-	backgroundColor: alpha(theme.palette.common.white, 0.15),
-	"&:hover": {
-		backgroundColor: alpha(theme.palette.common.white, 0.25)
-	},
-	paddingLeft: theme.spacing(1)
-}));
+import { Search, SearchIconWrapper, StyledFormGroup, StyledInputBase, StyledNavLink } from "./StyledComponents";
 
 
 const Appbar: FunctionComponent = () => {
@@ -104,11 +58,11 @@ const Appbar: FunctionComponent = () => {
 		>
 			{PokemonTypeNames.map(
 				typeName =>
-					<MenuItem key={typeName} onClick={handleMenuClose}>
-						<NavLink key={typeName} to={'/' + typeName}>
+					<StyledNavLink key={typeName} to={'/' + typeName}>
+						<MenuItem key={typeName} onClick={handleMenuClose}>
 							{typeName}
-						</NavLink>
-					</MenuItem>
+						</MenuItem>
+					</StyledNavLink>
 			)}
 		</Menu>
 	);
