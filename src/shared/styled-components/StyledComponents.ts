@@ -1,5 +1,16 @@
-import { alpha, FormGroup, InputBase, styled } from "@mui/material";
+import { alpha, FormGroup, InputBase, Paper, styled } from "@mui/material";
 import { NavLink } from 'react-router-dom';
+
+export const PokemonNameCard = styled(Paper)`
+	text-align: center;
+	padding: 8px;
+`
+export const StyledHeader = styled("div")`
+	display: flex;
+	justify-content: center;
+	padding-top: 24px;
+	padding-bottom: 24px;
+`
 
 export const StyledNavLink = styled(NavLink)(({theme})=> ({
 	textDecoration: "none",

@@ -1,26 +1,15 @@
-import { CircularProgress, Grid, Paper, styled, Typography } from '@mui/material';
+import { CircularProgress, Grid } from '@mui/material';
 import { FunctionComponent, useState } from 'react';
 import { useGetPokemonListByTypeQuery } from '../../services/services';
+import { PokemonNameCard } from '../../shared/styled-components/StyledComponents';
 import { useAppSelector } from '../../store/hooks';
 import ErrorComponent from '../error-component/Error';
+import Header from '../header/Header';
 import PokemonProfileModal from '../pokemon-profile/PokemonProfile';
-import './PokemonList.scss';
 
 interface PokemonListProps {
 	pokemonType: string;
 }
-
-const Item = styled(Paper)`
-	text-align: center;
-	padding: 8px;
-`
-
-const ListHeader = styled("div")`
-	display: flex;
-	justify-content: center;
-	padding-top: 24px;
-	padding-bottom: 24px;
-`
 
 const PokemonList: FunctionComponent<PokemonListProps> = (props: PokemonListProps) => {
 
@@ -39,7 +28,7 @@ const PokemonList: FunctionComponent<PokemonListProps> = (props: PokemonListProp
 
 	const renderPokemonList = (name: string) => (
 		<Grid item xs={12} sm={6} md={4} key={name}>
-			<Item sx={{ 
+			<PokemonNameCard sx={{
 				backgroundColor: isCaught(name) ? 'red' : "#fff",
 				':hover': {
 					backgroundColor: 'rgba(47, 191, 119, 0.1)',
@@ -47,26 +36,16 @@ const PokemonList: FunctionComponent<PokemonListProps> = (props: PokemonListProp
 			}}
 				onClick={() => setSelectedPokemon(name)}>
 				{name}
-			</Item>
+			</PokemonNameCard>
 		</Grid>
 	)
 
 	const renderListHeader = (
-		<>
-			<ListHeader className="list-header">
-				{props.pokemonType &&
-					<Typography variant='h4' noWrap component="div"
-						sx={{
-							marginTop: 2,
-							marginBottom: 2,
-						}}>
-						{shouldShowOnlyCaughtPokemons
-							? 'caught pokemons'
-							: `'${props.pokemonType}' pokemons`}
-					</Typography>
-				}
-			</ListHeader>
-		</>
+		<Header>
+			{shouldShowOnlyCaughtPokemons
+				? 'caught pokemons'
+				: `'${props.pokemonType}' pokemons`}
+		</Header>
 	)
 
 	const renderPokemonNames = (pokemons: string[] | undefined) => (
