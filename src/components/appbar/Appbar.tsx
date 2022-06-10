@@ -10,11 +10,11 @@ import Toolbar from "@mui/material/Toolbar";
 import { ChangeEvent, FunctionComponent, useState } from "react";
 import '../../App.scss';
 import { PokemonTypeNames } from "../../constants/constants";
+import { Search, SearchIconWrapper, StyledFormGroup, StyledInputBase, StyledNavLink } from "../../shared/styled-components/StyledComponents";
 import { useAppDispatch, useAppSelector } from "../../store/hooks";
 import { setPokemonSearchString } from "../../store/slices/searchPokemonSlice";
 import { switchFlag } from '../../store/slices/showOnlyCaughtSlice';
 import './Appbar.scss';
-import { Search, SearchIconWrapper, StyledFormGroup, StyledInputBase, StyledNavLink } from "./StyledComponents";
 
 
 const Appbar: FunctionComponent = () => {
