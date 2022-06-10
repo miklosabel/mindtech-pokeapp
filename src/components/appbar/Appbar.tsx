@@ -11,10 +11,13 @@ import { alpha, styled } from "@mui/material/styles";
 import Toolbar from "@mui/material/Toolbar";
 import { ChangeEvent, FunctionComponent, useState } from "react";
 import { NavLink } from "react-router-dom";
+import '../../App.scss';
 import { PokemonTypeNames } from "../../constants/constants";
 import { useAppDispatch, useAppSelector } from "../../store/hooks";
 import { setPokemonSearchString } from "../../store/slices/searchPokemonSlice";
 import { switchFlag } from '../../store/slices/showOnlyCaughtSlice';
+import './Appbar.scss';
+
 
 const Search = styled("div")(({ theme }) => ({
 	position: "relative",
@@ -72,14 +75,14 @@ const Appbar: FunctionComponent = () => {
 	const handleCheckboxChange = (event: ChangeEvent<HTMLInputElement>) => {
 		dispatch(switchFlag(event.target.checked));
 		dispatch(setPokemonSearchString(''));
-}
+	}
 
-	const handleMenuOpen = (event: React.MouseEvent<HTMLElement>) => 
+	const handleMenuOpen = (event: React.MouseEvent<HTMLElement>) =>
 		setAnchorEl(event.currentTarget);
-	
+
 
 	const handleMenuClose = () => setAnchorEl(null);
-	
+
 
 	const handleSearchInputChange = (event: ChangeEvent<HTMLInputElement>) =>
 		dispatch(setPokemonSearchString(event.target.value))
@@ -113,47 +116,48 @@ const Appbar: FunctionComponent = () => {
 	return (
 		<Box sx={{ flexGrow: 1 }}>
 			<AppBar position="static">
-				<Toolbar>
-					<Box>
-						<IconButton
-							size="large"
-							edge="end"
-							aria-haspopup="true"
-							onClick={handleMenuOpen}
-							color="inherit"
-						>
-							<MenuIcon />
-						</IconButton>
-					</Box>
-					<Box sx={{ flexGrow: 1 }} />
-					<Search>
-						<SearchIconWrapper>
-							<SearchIcon />
-						</SearchIconWrapper>
-						<StyledInputBase
-							placeholder="Search..."
-							inputProps={{ "aria-label": "search" }}
-							onChange={handleSearchInputChange}
-							value={pokemonSearchString}
-						/>
-					</Search>
-					<Box sx={{ flexGrow: 1 }} />
-					<Box>
-						<StyledFormGroup>
-							<FormControlLabel
-								control={
-									<Checkbox
-										checked={showOnlyCaughtPokemons}
-										onChange={handleCheckboxChange}
-										inputProps={{ "aria-label": "controlled" }}
-									/>
-								}
-								label="Caught only"
+				<div className="appbar-container">
+					<Toolbar className='appbar-content'>
+						<Box>
+							<IconButton
+								size="large"
+								edge="end"
+								aria-haspopup="true"
+								onClick={handleMenuOpen}
+								color="inherit"
+							>
+								<MenuIcon />
+							</IconButton>
+						</Box>
+						<Box sx={{ flexGrow: 1 }} />
+						<Search>
+							<SearchIconWrapper>
+								<SearchIcon />
+							</SearchIconWrapper>
+							<StyledInputBase
+								placeholder="Search..."
+								inputProps={{ "aria-label": "search" }}
+								onChange={handleSearchInputChange}
+								value={pokemonSearchString}
 							/>
-						</StyledFormGroup>
-					</Box>
-
-				</Toolbar>
+						</Search>
+						<Box sx={{ flexGrow: 1 }} />
+						<Box>
+							<StyledFormGroup>
+								<FormControlLabel
+									control={
+										<Checkbox
+											checked={showOnlyCaughtPokemons}
+											onChange={handleCheckboxChange}
+											inputProps={{ "aria-label": "controlled" }}
+										/>
+									}
+									label="Caught only"
+								/>
+							</StyledFormGroup>
+						</Box>
+					</Toolbar>
+				</div>
 			</AppBar>
 			{renderMenu}
 		</Box>
