@@ -15,6 +15,13 @@ const Item = styled(Paper)`
 	padding: 8px;
 `
 
+const ListHeader = styled("div")`
+	display: flex;
+	justify-content: center;
+	padding-top: 24px;
+	padding-bottom: 24px;
+`
+
 const PokemonList: FunctionComponent<PokemonListProps> = (props: PokemonListProps) => {
 
 	const [selectedPokemon, setSelectedPokemon] = useState<string>('');
@@ -31,26 +38,34 @@ const PokemonList: FunctionComponent<PokemonListProps> = (props: PokemonListProp
 	const pokemonSearchString = useAppSelector(state => state.searchPokemon.searchString)
 
 	const renderPokemonList = (name: string) => (
-		<Grid item xs={12} sm={6} md={4} lg={3} key={name}>
-			<Item sx={{ backgroundColor: isCaught(name) ? 'red' : "#fff" }}
+		<Grid item xs={12} sm={6} md={4} key={name}>
+			<Item sx={{ 
+				backgroundColor: isCaught(name) ? 'red' : "#fff",
+				':hover': {
+					backgroundColor: 'rgba(47, 191, 119, 0.1)',
+				}
+			}}
 				onClick={() => setSelectedPokemon(name)}>
 				{name}
 			</Item>
 		</Grid>
 	)
 
-	const renderHeader = (
+	const renderListHeader = (
 		<>
-			{props.pokemonType &&
-				<Typography variant='h4' noWrap component="div"
-					sx={{
-						marginTop: 2,
-						marginBottom: 2
-					}}>
-					{shouldShowOnlyCaughtPokemons
-						? 'Caught pokemons'
-						: `Current type: ${props.pokemonType}`}
-				</Typography>}
+			<ListHeader className="list-header">
+				{props.pokemonType &&
+					<Typography variant='h4' noWrap component="div"
+						sx={{
+							marginTop: 2,
+							marginBottom: 2,
+						}}>
+						{shouldShowOnlyCaughtPokemons
+							? 'caught pokemons'
+							: `'${props.pokemonType}' pokemons`}
+					</Typography>
+				}
+			</ListHeader>
 		</>
 	)
 
@@ -62,10 +77,10 @@ const PokemonList: FunctionComponent<PokemonListProps> = (props: PokemonListProp
 	)
 
 	if (isLoading) return <CircularProgress />
-	else if (error) return <ErrorComponent title="Error" text="Pokemons cannot be loaded"/>
+	else if (error) return <ErrorComponent title="Error" text="Pokemons cannot be loaded" />
 	else return (
 		<>
-			{renderHeader}
+			{renderListHeader}
 			<Grid container spacing={2}>
 				{
 					shouldShowOnlyCaughtPokemons

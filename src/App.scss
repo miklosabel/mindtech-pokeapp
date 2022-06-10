@@ -1,7 +1,10 @@
 .App {
+  background-color: rgba(0, 0, 0, 0.1);
   .content {
     max-width: 1200px;
     margin: 0 auto;
-		padding: 24px;
+    padding-left: 24px;
+    padding-right: 24px;
+		height: 100vh;
   }
 }
