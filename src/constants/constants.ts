@@ -1,0 +1,19 @@
+export const PokemonTypeNames: string[] = [
+	'bug', 
+	'dark', 
+	'dragon', 
+	'electric', 
+	'fairy', 
+	'fighting', 
+	'fire', 
+	'ghost', 
+	'grass', 
+	'ground', 
+	'ice', 
+	'normal', 
+	'poison', 
+	'psychic', 
+	'rock', 
+	'steel', 
+	'water'
+]

@@ -11,7 +11,7 @@ import { alpha, styled } from "@mui/material/styles";
 import Toolbar from "@mui/material/Toolbar";
 import { ChangeEvent, FunctionComponent, useState } from "react";
 import { NavLink } from "react-router-dom";
-import { PokemonTypeNames } from "../../interface";
+import { PokemonTypeNames } from "../../constants/constants";
 import { useAppDispatch, useAppSelector } from "../../store/hooks";
 import { setPokemonSearchString } from "../../store/slices/searchPokemonSlice";
 import { switchFlag } from '../../store/slices/showOnlyCaughtSlice';

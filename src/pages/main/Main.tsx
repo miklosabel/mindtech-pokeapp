@@ -1,8 +1,8 @@
 import React, { FunctionComponent } from 'react';
 import { Route, Routes } from "react-router-dom";
 import PokemonList from '../../components/pokemon-list/PokemonList';
+import { PokemonTypeNames } from '../../constants/constants';
 import Appbar from './../../components/appbar/Appbar';
-import { PokemonTypeNames } from './../../interface';
 
 const Main: FunctionComponent = () => {
 	return (

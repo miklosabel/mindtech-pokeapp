@@ -1,7 +1,7 @@
 
 import React, { FunctionComponent } from 'react';
 import { NavLink } from 'react-router-dom';
-import { PokemonTypeNames } from './../../interface';
+import { PokemonTypeNames } from '../../constants/constants';
 import './NavBar.scss';
 
 const NavBar: FunctionComponent = () => {
