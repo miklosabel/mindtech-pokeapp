@@ -91,13 +91,13 @@ const Appbar: FunctionComponent = () => {
 		<Menu
 			anchorEl={anchorEl}
 			anchorOrigin={{
-				vertical: "top",
-				horizontal: "right"
+				vertical: "bottom",
+				horizontal: "left"
 			}}
 			keepMounted
 			transformOrigin={{
 				vertical: "top",
-				horizontal: "right"
+				horizontal: "left"
 			}}
 			open={isMenuOpen}
 			onClose={handleMenuClose}
