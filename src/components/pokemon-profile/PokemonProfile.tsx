@@ -41,7 +41,7 @@ const PokemonProfileModal: FunctionComponent<PokemonProfileProps> = (props: Poke
 			: dispatch(catchPokemon({ pokemonName }))
 
 	// render helpers
-	const renderModal = (children: any) => (
+	const renderModal = (children: JSX.Element) => (
 		<Modal
 			keepMounted
 			open={isModalOpen}
