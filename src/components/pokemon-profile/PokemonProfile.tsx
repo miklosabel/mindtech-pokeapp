@@ -1,10 +1,17 @@
-import { Button, Card, CardContent, CardMedia, CircularProgress, Modal, Typography } from "@mui/material";
+import { Box, Button, Card, CardContent, CardMedia, CircularProgress, Modal, styled, Typography } from "@mui/material";
 import { FunctionComponent } from "react";
 import { useGetPokemonDataByNameQuery } from "../../services/services";
 import { useAppDispatch, useAppSelector } from "../../store/hooks";
 import { catchPokemon, releasePokemon } from "../../store/slices/caughtPokemonsSlice";
 import ErrorComponent from "../error-component/Error";
 
+
+const StyledModalBox = styled(Box)(({ theme }) => ({
+	position: "absolute",
+	top: "50%",
+	left: "50%",
+	transform: "translate(-50%, -50%)",
+}))
 
 export interface PokemonProfileProps {
 	selectedPokemon: string;
@@ -40,7 +47,9 @@ const PokemonProfileModal: FunctionComponent<PokemonProfileProps> = (props: Poke
 			open={isModalOpen}
 			onClose={() => closeModal()}
 		>
-			{children}
+			<StyledModalBox>
+				{children}
+			</StyledModalBox>
 		</Modal>
 	)
 
@@ -49,6 +58,10 @@ const PokemonProfileModal: FunctionComponent<PokemonProfileProps> = (props: Poke
 			component="img"
 			image={profilePicture}
 			alt={`profile image of ${pokemonData?.name}`}
+			sx={{
+				minWidth: 250,
+				minHeight: 250
+			}}
 		/>
 	)
 
@@ -65,10 +78,10 @@ const PokemonProfileModal: FunctionComponent<PokemonProfileProps> = (props: Poke
 	)
 
 	const renderCard = (
-		<Card sx={{ maxWidth: 345 }}>
+		<Card>
 			{renderPokemonPicture}
 			<CardContent>
-				<Typography gutterBottom variant="h5" component="div">
+				<Typography gutterBottom variant="h5" component="div" sx={{ textAlign: "center" }}>
 					{pokemonData?.name}
 				</Typography>
 				<div>
@@ -84,9 +97,16 @@ const PokemonProfileModal: FunctionComponent<PokemonProfileProps> = (props: Poke
 					{renderRow("Visible abilities:", visibleAbilities)}
 				</div>
 			</CardContent>
-			<Button onClick={() => handlePokemonCatch(props.selectedPokemon)}>
-				{caughtPokemons.includes(props.selectedPokemon) ? 'Release' : 'Catch'}
-			</Button>
+			<Box sx={{ display: "flex", justifyContent: "center" }}>
+				<Button
+					size="large"
+					variant="outlined"
+					sx={{ margin: 1 }}
+					onClick={() => handlePokemonCatch(props.selectedPokemon)}
+				>
+					{caughtPokemons.includes(props.selectedPokemon) ? 'Release' : 'Catch'}
+				</Button>
+			</Box>
 		</Card>
 	)
 
