@@ -1,7 +1,8 @@
-import { Alert, AlertTitle, CircularProgress, Grid, Paper, styled, Typography } from '@mui/material';
+import { CircularProgress, Grid, Paper, styled, Typography } from '@mui/material';
 import { FunctionComponent, useState } from 'react';
 import { useGetPokemonListByTypeQuery } from '../../services/services';
 import { useAppSelector } from '../../store/hooks';
+import ErrorComponent from '../error-component/Error';
 import PokemonProfileModal from '../pokemon-profile/PokemonProfile';
 import './PokemonList.scss';
 
@@ -29,13 +30,6 @@ const PokemonList: FunctionComponent<PokemonListProps> = (props: PokemonListProp
 	const shouldShowOnlyCaughtPokemons = useAppSelector(state => state.showOnlyCaughtPokemons.flag)
 	const pokemonSearchString = useAppSelector(state => state.searchPokemon.searchString)
 
-	const renderAlert = (
-		<Alert severity="error">
-			<AlertTitle>Error</AlertTitle>
-			Pokemons cannot be loaded!
-		</Alert>
-	)
-	
 	const renderPokemonList = (name: string) => (
 		<Grid item xs={12} sm={6} md={4} lg={3} key={name}>
 			<Item sx={{ backgroundColor: isCaught(name) ? 'red' : "#fff" }}
@@ -68,7 +62,7 @@ const PokemonList: FunctionComponent<PokemonListProps> = (props: PokemonListProp
 	)
 
 	if (isLoading) return <CircularProgress />
-	else if (error) return renderAlert
+	else if (error) return <ErrorComponent title="Error" text="Pokemons cannot be loaded"/>
 	else return (
 		<>
 			{renderHeader}

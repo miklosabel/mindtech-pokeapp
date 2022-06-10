@@ -3,6 +3,7 @@ import { FunctionComponent } from "react";
 import { useGetPokemonDataByNameQuery } from "../../services/services";
 import { useAppDispatch, useAppSelector } from "../../store/hooks";
 import { catchPokemon, releasePokemon } from "../../store/slices/caughtPokemonsSlice";
+import ErrorComponent from "../error-component/Error";
 
 
 export interface PokemonProfileProps {
