@@ -2,6 +2,7 @@ import React from 'react';
 import { Route, Routes } from "react-router-dom";
 import './App.scss';
 import Appbar from './components/appbar/Appbar';
+import Header from './components/header/Header';
 import PokemonList from './components/pokemon-list/PokemonList';
 import { PokemonTypeNames } from './constants/constants';
 
@@ -25,7 +26,7 @@ function App(): JSX.Element {
 				key='main'
 				path="/"
 				element={
-					<><p>Welcome to my pokemon page!</p></>
+					<Header>Hi MindtechApps! Have a nice experience! :-) </Header>
 				} />
 			{renderRoute}
 		</Routes>
