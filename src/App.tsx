@@ -26,7 +26,7 @@ function App(): JSX.Element {
 				key='main'
 				path="/"
 				element={
-					<Header>Hi MindtechApps! Have a nice experience! :-) </Header>
+					<Header>Welcome to my pokeapp!</Header>
 				} />
 			{renderRoute}
 		</Routes>
