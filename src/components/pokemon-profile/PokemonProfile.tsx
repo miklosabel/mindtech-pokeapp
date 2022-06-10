@@ -11,60 +11,76 @@ export interface PokemonProfileProps {
 }
 
 const PokemonProfileModal: FunctionComponent<PokemonProfileProps> = (props: PokemonProfileProps) => {
-	const { data, error, isLoading } = useGetPokemonDataByNameQuery(props.selectedPokemon);
+	const { data: pokemonData, error, isLoading } = useGetPokemonDataByNameQuery(props.selectedPokemon);
 
 	const dispatch = useAppDispatch();
 	const caughtPokemons = useAppSelector(state => state.caughtPokemons)
-	const handlePokemonCatch = (pokemonName: string) => {
-		if (caughtPokemons.includes(pokemonName)) {
-			dispatch(releasePokemon({ pokemonName }));
-		} else {
-			dispatch(catchPokemon({ pokemonName }))
-		}
-	}
+
+	const profilePicture = pokemonData?.sprites?.front_default
+	const visibleAbilities: string[] = pokemonData?.abilities
+		? pokemonData.abilities.filter(ability => !ability.is_hidden).map(x => x.ability.name)
+		: [];
+	const pokemonTypes: string[] = pokemonData?.types
+		? pokemonData.types.map(typeObject => typeObject.type.name)
+		: []
+
 	const closeModal = () => props.setSelectedPokemon('')
-	const isOpen = () => props.selectedPokemon !== ''
-	const visibleAbilities = data?.abilities && data.abilities.filter(ability => !ability.is_hidden)
-	const profilePicture = data?.sprites?.front_default
-	const pokemonTypes = data?.types && data.types.map(typeObject => typeObject.type.name)
+	const isModalOpen = props.selectedPokemon !== ''
+
+	const handlePokemonCatch = (pokemonName: string) =>
+		caughtPokemons.includes(pokemonName)
+			? dispatch(releasePokemon({ pokemonName }))
+			: dispatch(catchPokemon({ pokemonName }))
 
 	// render helpers
 	const renderModal = (children: any) => (
 		<Modal
-			open={isOpen()}
+			keepMounted
+			open={isModalOpen}
 			onClose={() => closeModal()}
 		>
 			{children}
 		</Modal>
 	)
 
+	const renderPokemonPicture = (
+		<CardMedia
+			component="img"
+			image={profilePicture}
+			alt={`profile image of ${pokemonData?.name}`}
+		/>
+	)
+
+	const renderRow = (label: string, renderData: string[]) => (
+		<>
+			<strong>{label + ' '}</strong>
+			{
+				renderData && renderData.map((element, index) => [
+					index > 0 && ', ',
+					<span key={element}>{element}</span>
+				])
+			}
+		</>
+	)
+
 	const renderCard = (
 		<Card sx={{ maxWidth: 345 }}>
-			<CardMedia
-				component="img"
-				image={profilePicture}
-				alt={`profile image of ${data?.name}`}
-			/>
+			{renderPokemonPicture}
 			<CardContent>
 				<Typography gutterBottom variant="h5" component="div">
-					{data?.name}
+					{pokemonData?.name}
 				</Typography>
 				<div>
-					<strong>Type: </strong>
-					{pokemonTypes?.map(name => <span key={name}>{name + ' '}</span>)}
+					{renderRow("Types:", pokemonTypes)}
 				</div>
 				<div>
-					<strong>Weight: </strong>{data?.weight}
+					<strong>Weight: </strong>{pokemonData?.weight}
 				</div>
 				<div>
-					<strong>Height: </strong>{data?.height}
+					<strong>Height: </strong>{pokemonData?.height}
 				</div>
 				<div>
-					<strong>Visible abilities: </strong>
-					<div>
-						{visibleAbilities && visibleAbilities.map(x =>
-							<div key={x.ability.name}>{x.ability.name}</div>)}
-					</div>
+					{renderRow("Visible abilities:", visibleAbilities)}
 				</div>
 			</CardContent>
 			<Button onClick={() => handlePokemonCatch(props.selectedPokemon)}>
@@ -73,15 +89,8 @@ const PokemonProfileModal: FunctionComponent<PokemonProfileProps> = (props: Poke
 		</Card>
 	)
 
-	const renderError = (
-		error && <div>
-			network related error happened.
-		</div>
-	)
-
-	// render
 	if (isLoading) return renderModal(<CircularProgress />)
-	else if (error) return renderModal(renderError)
+	else if (error) return renderModal(<ErrorComponent title="Error" text="Pokemon data cannot be loaded" />)
 	else return renderModal(renderCard)
 
 }
