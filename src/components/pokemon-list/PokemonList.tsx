@@ -1,7 +1,6 @@
-import { CircularProgress, Grid } from '@mui/material';
+import { CircularProgress, Grid, Paper } from '@mui/material';
 import { FunctionComponent, useState } from 'react';
 import { useGetPokemonListByTypeQuery } from '../../services/services';
-import { PokemonNameCard } from '../../shared/styled-components/StyledComponents';
 import { useAppSelector } from '../../store/hooks';
 import ErrorComponent from '../error-component/Error';
 import Header from '../header/Header';
@@ -15,28 +14,31 @@ const PokemonList: FunctionComponent<PokemonListProps> = (props: PokemonListProp
 
 	const [selectedPokemon, setSelectedPokemon] = useState<string>('');
 
-	// fetched pokemontype related data
-	const { data, error, isLoading } = useGetPokemonListByTypeQuery(props.pokemonType);
-	const pokemonNames = data?.pokemon.map(pokemon => pokemon.pokemon.name);
+	const { data: pokemonListData, error, isLoading } = useGetPokemonListByTypeQuery(props.pokemonType);
+	const pokemonNames = pokemonListData?.pokemon.map(pokemon => pokemon.pokemon.name);
 
 	const caughtPokemons = useAppSelector(state => state.caughtPokemons)
 	const isCaught = (pokemonName: string): boolean =>
 		caughtPokemons.includes(pokemonName) ? true : false;
 
-	const shouldShowOnlyCaughtPokemons = useAppSelector(state => state.showOnlyCaughtPokemons.flag)
+	const shouldShowOnlyCaughtPokemons = useAppSelector(state => state.shouldShowOnlyCaughtPokemons.flag)
 	const pokemonSearchString = useAppSelector(state => state.searchPokemon.searchString)
 
 	const renderPokemonList = (name: string) => (
 		<Grid item xs={12} sm={6} md={4} key={name}>
-			<PokemonNameCard sx={{
-				backgroundColor: isCaught(name) ? 'red' : "#fff",
-				':hover': {
-					backgroundColor: 'rgba(47, 191, 119, 0.1)',
-				}
-			}}
-				onClick={() => setSelectedPokemon(name)}>
+			<Paper
+				onClick={() => setSelectedPokemon(name)}
+				sx={{
+					textAlign: 'center',
+					padding: '8px',
+					backgroundColor: isCaught(name) ? 'rgba(255, 99, 71, 1)' : 'rgba(255, 255, 255, 1)',
+					':hover': {
+						backgroundColor: isCaught(name) ? 'rgba(255, 99, 71, 0.6)' :'rgba(255, 255, 255, 0.6)' 
+					}
+				}}
+			>
 				{name}
-			</PokemonNameCard>
+			</Paper>
 		</Grid>
 	)
 
@@ -48,12 +50,14 @@ const PokemonList: FunctionComponent<PokemonListProps> = (props: PokemonListProp
 		</Header>
 	)
 
-	const renderPokemonNames = (pokemons: string[] | undefined) => (
-		pokemons ? pokemons
-			.filter(name => name.startsWith(pokemonSearchString))
-			.map((name: string) => renderPokemonList(name))
-			: null
-	)
+	const renderPokemonNames = (pokemons: string[] | undefined) => {
+		if (pokemons) {
+			return pokemons
+				.filter(name => name.startsWith(pokemonSearchString))
+				.map((name: string) => renderPokemonList(name));
+		}
+		return null;
+	}
 
 	if (isLoading) return <CircularProgress />
 	else if (error) return <ErrorComponent title="Error" text="Pokemons cannot be loaded" />

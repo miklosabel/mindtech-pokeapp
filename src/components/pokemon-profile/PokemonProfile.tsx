@@ -1,17 +1,11 @@
-import { Box, Button, Card, CardContent, CardMedia, CircularProgress, Modal, styled, Typography } from "@mui/material";
+import { Box, Button, Card, CardContent, CardMedia, CircularProgress, Modal, Typography } from "@mui/material";
 import { FunctionComponent } from "react";
 import { useGetPokemonDataByNameQuery } from "../../services/services";
+import { StyledModalBox } from "../../shared/styled-components/StyledComponents";
 import { useAppDispatch, useAppSelector } from "../../store/hooks";
 import { catchPokemon, releasePokemon } from "../../store/slices/caughtPokemonsSlice";
 import ErrorComponent from "../error-component/Error";
 
-
-const StyledModalBox = styled(Box)(({ theme }) => ({
-	position: "absolute",
-	top: "50%",
-	left: "50%",
-	transform: "translate(-50%, -50%)",
-}))
 
 export interface PokemonProfileProps {
 	selectedPokemon: string;
@@ -40,7 +34,6 @@ const PokemonProfileModal: FunctionComponent<PokemonProfileProps> = (props: Poke
 			? dispatch(releasePokemon({ pokemonName }))
 			: dispatch(catchPokemon({ pokemonName }))
 
-	// render helpers
 	const renderModal = (children: JSX.Element) => (
 		<Modal
 			keepMounted
@@ -53,6 +46,7 @@ const PokemonProfileModal: FunctionComponent<PokemonProfileProps> = (props: Poke
 		</Modal>
 	)
 
+	// TODO could be progressive loading
 	const renderPokemonPicture = (
 		<CardMedia
 			component="img"
@@ -78,7 +72,7 @@ const PokemonProfileModal: FunctionComponent<PokemonProfileProps> = (props: Poke
 	)
 
 	const renderCard = (
-		<Card>
+		<Card sx={{ paddingBottom: 1 }}>
 			{renderPokemonPicture}
 			<CardContent>
 				<Typography gutterBottom variant="h5" component="div" sx={{ textAlign: "center" }}>

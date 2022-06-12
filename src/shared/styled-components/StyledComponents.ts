@@ -1,10 +1,13 @@
-import { alpha, FormGroup, InputBase, Paper, styled } from "@mui/material";
+import { alpha, Box, FormGroup, InputBase, styled } from "@mui/material";
 import { NavLink } from 'react-router-dom';
 
-export const PokemonNameCard = styled(Paper)`
-	text-align: center;
-	padding: 8px;
-`
+export const StyledModalBox = styled(Box)(() => ({
+	position: "absolute",
+	top: "50%",
+	left: "50%",
+	transform: "translate(-50%, -50%)",
+}))
+
 export const StyledHeader = styled("div")`
 	display: flex;
 	justify-content: center;
@@ -12,10 +15,9 @@ export const StyledHeader = styled("div")`
 	padding-bottom: 24px;
 `
 
-export const StyledNavLink = styled(NavLink)(({theme})=> ({
+export const StyledNavLink = styled(NavLink)(({ theme }) => ({
 	textDecoration: "none",
-	color: "black",
-	opacity: 0.8
+	color: alpha(theme.palette.common.black, 0.8)
 }));
 
 export const Search = styled("div")(({ theme }) => ({
@@ -27,10 +29,7 @@ export const Search = styled("div")(({ theme }) => ({
 	},
 	marginRight: theme.spacing(2),
 	marginLeft: theme.spacing(3),
-	width: "auto",
-	[theme.breakpoints.up('md')]: {
-		width: "50%",
-	}
+	paddingRight: theme.spacing(2),
 }));
 
 export const SearchIconWrapper = styled("div")(({ theme }) => ({
