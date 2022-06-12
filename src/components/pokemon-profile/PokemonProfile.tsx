@@ -1,11 +1,14 @@
-import { Box, Button, Card, CardContent, CardMedia, CircularProgress, Modal, Typography } from "@mui/material";
+import { Box, Button, Card, CardContent, CardMedia, Modal, Typography } from "@mui/material";
 import { FunctionComponent } from "react";
 import { useGetPokemonDataByNameQuery } from "../../services/services";
+import LoadingSpinner from "../../shared/loading-spinner/LoadingSpinner";
 import { StyledModalBox } from "../../shared/styled-components/StyledComponents";
 import { useAppDispatch, useAppSelector } from "../../store/hooks";
 import { catchPokemon, releasePokemon } from "../../store/slices/caughtPokemonsSlice";
 import ErrorComponent from "../error-component/Error";
 
+const MODAL_MIN_HEIGHT = 530;
+const MODAL_MIN_WIDTH = 300;
 
 export interface PokemonProfileProps {
 	selectedPokemon: string;
@@ -41,12 +44,16 @@ const PokemonProfileModal: FunctionComponent<PokemonProfileProps> = (props: Poke
 			onClose={() => closeModal()}
 		>
 			<StyledModalBox>
-				{children}
+				<Card sx={{
+					minWidth: MODAL_MIN_WIDTH,
+					minHeight: MODAL_MIN_HEIGHT,
+				}}>
+					{children}
+				</Card>
 			</StyledModalBox>
 		</Modal>
 	)
 
-	// TODO could be progressive loading
 	const renderPokemonPicture = (
 		<CardMedia
 			component="img"
@@ -72,7 +79,7 @@ const PokemonProfileModal: FunctionComponent<PokemonProfileProps> = (props: Poke
 	)
 
 	const renderCard = (
-		<Card sx={{ paddingBottom: 1 }}>
+		<>
 			{renderPokemonPicture}
 			<CardContent>
 				<Typography gutterBottom variant="h5" component="div" sx={{ textAlign: "center" }}>
@@ -101,10 +108,11 @@ const PokemonProfileModal: FunctionComponent<PokemonProfileProps> = (props: Poke
 					{caughtPokemons.includes(props.selectedPokemon) ? 'Release' : 'Catch'}
 				</Button>
 			</Box>
-		</Card>
+		</>
 	)
 
-	if (isLoading) return renderModal(<CircularProgress />)
+
+	if (isLoading) return renderModal(<LoadingSpinner/>)
 	else if (error) return renderModal(<ErrorComponent title="Error" text="Pokemon data cannot be loaded" />)
 	else return renderModal(renderCard)
 

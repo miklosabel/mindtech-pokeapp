@@ -60,7 +60,7 @@ const PokemonList: FunctionComponent<PokemonListProps> = (props: PokemonListProp
 	}
 
 	if (isLoading) return <CircularProgress />
-	else if (error) return <ErrorComponent title="Error" text="Pokemons cannot be loaded" />
+	else if (error) return <ErrorComponent style={{marginTop: 32}} title="Error" text="Pokemons cannot be loaded" />
 	else return (
 		<>
 			{renderListHeader}
