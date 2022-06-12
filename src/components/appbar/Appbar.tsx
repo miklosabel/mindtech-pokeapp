@@ -13,7 +13,7 @@ import { PokemonTypeNames } from "../../constants/constants";
 import { Search, SearchIconWrapper, StyledFormGroup, StyledInputBase, StyledNavLink } from "../../shared/styled-components/StyledComponents";
 import { useAppDispatch, useAppSelector } from "../../store/hooks";
 import { setPokemonSearchString } from "../../store/slices/searchPokemonSlice";
-import { switchFlag } from '../../store/slices/showOnlyCaughtSlice';
+import { switchFlag } from '../../store/slices/shouldShowOnlyCaughtPokemonsSlice';
 import './Appbar.scss';
 
 
@@ -22,7 +22,7 @@ const Appbar: FunctionComponent = () => {
 
 	const isMenuOpen = Boolean(anchorEl);
 
-	const showOnlyCaughtPokemons = useAppSelector(state => state.showOnlyCaughtPokemons.flag);
+	const showOnlyCaughtPokemons = useAppSelector(state => state.shouldShowOnlyCaughtPokemons.flag);
 	const pokemonSearchString = useAppSelector(state => state.searchPokemon.searchString)
 	const dispatch = useAppDispatch()
 

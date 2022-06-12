@@ -9,18 +9,20 @@ interface State {
 const initialState: State = {
 	flag: false
 }
+
 interface ShowOnlyCaughtActionType {
 	payload: boolean
 }
 
 export const shouldShowOnlyCaughtPokemonsSlice = createSlice({
-	name: 'showOnlyCaughtPokemons',
+	name: 'shouldShowOnlyCaughtPokemons',
 	initialState,
 	reducers: {
 		switchFlag: (state: State, action: ShowOnlyCaughtActionType) => {
 			state.flag = action.payload
 		}
 	},
+	// switches off showCaughtPokemons when user changes pokemon type
 	extraReducers: (builder) => {
 		builder.addMatcher(
 			pokemonApi.endpoints.getPokemonListByType.matchFulfilled,

@@ -2,13 +2,13 @@ import { configureStore } from '@reduxjs/toolkit';
 import { pokemonApi } from './../services/services';
 import { caughtPokemonsSlice } from './slices/caughtPokemonsSlice';
 import { searchPokemonSlice } from './slices/searchPokemonSlice';
-import { shouldShowOnlyCaughtPokemonsSlice } from './slices/showOnlyCaughtSlice';
+import { shouldShowOnlyCaughtPokemonsSlice } from './slices/shouldShowOnlyCaughtPokemonsSlice';
 
 const store = configureStore({
   reducer: {
 		[pokemonApi.reducerPath]: pokemonApi.reducer,
 		caughtPokemons: caughtPokemonsSlice.reducer,
-		showOnlyCaughtPokemons: shouldShowOnlyCaughtPokemonsSlice.reducer,
+		shouldShowOnlyCaughtPokemons: shouldShowOnlyCaughtPokemonsSlice.reducer,
 		searchPokemon: searchPokemonSlice.reducer,
 	},
 	middleware: getDefaultMiddleware => getDefaultMiddleware().concat(pokemonApi.middleware)
