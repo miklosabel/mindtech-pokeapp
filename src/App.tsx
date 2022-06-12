@@ -23,11 +23,10 @@ function App(): JSX.Element {
 	const renderRoutes = (
 		<Routes>
 			<Route
-				key='main'
+				key='landing'
 				path="/"
-				element={
-					<Header>Welcome to my pokeapp!</Header>
-				} />
+				element={<Header>Welcome to my pokeapp!</Header>}
+			/>
 			{renderRoute}
 		</Routes>
 	)
