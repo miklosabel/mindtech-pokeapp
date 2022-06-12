@@ -5,10 +5,10 @@ import { FunctionComponent, useState } from "react";
 import '../../App.scss';
 import { AppbarOffset } from "../../shared/styled-components/StyledComponents";
 import './Appbar.scss';
-import AppbarMenuIcon from "./components/appbarMenuIcon";
-import CaughtPokemonsCheckbox from "./components/caughtPokemonsCheckbox";
-import MenuDropdown from './components/menuDropDown';
-import SearchBar from './components/searchBar';
+import AppbarMenuIcon from "./components/AppbarMenuIcon";
+import CaughtPokemonsCheckbox from "./components/CaughtPokemonsCheckbox";
+import MenuDropdown from './components/MenuDropDown';
+import SearchBar from './components/SearchBar';
 
 
 const Appbar: FunctionComponent = () => {

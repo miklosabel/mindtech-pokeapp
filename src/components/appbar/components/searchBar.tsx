@@ -1,8 +1,8 @@
 import SearchIcon from "@mui/icons-material/Search";
 import { ChangeEvent, FunctionComponent } from 'react';
+import { Search, SearchIconWrapper, StyledInputBase } from '../../../shared/styled-components/StyledComponents';
 import { useAppDispatch, useAppSelector } from '../../../store/hooks';
 import { setPokemonSearchString } from '../../../store/slices/searchPokemonSlice';
-import { Search, SearchIconWrapper, StyledInputBase } from './../../../shared/styled-components/StyledComponents';
 
 const SearchBar: FunctionComponent = () => {
 
