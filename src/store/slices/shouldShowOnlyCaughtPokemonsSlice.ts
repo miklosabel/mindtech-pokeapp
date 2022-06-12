@@ -18,7 +18,7 @@ export const shouldShowOnlyCaughtPokemonsSlice = createSlice({
 	name: 'shouldShowOnlyCaughtPokemons',
 	initialState,
 	reducers: {
-		switchFlag: (state: State, action: ShowOnlyCaughtActionType) => {
+		switchShouldShowOnlyCaughtFlag: (state: State, action: ShowOnlyCaughtActionType) => {
 			state.flag = action.payload
 		}
 	},
@@ -31,5 +31,5 @@ export const shouldShowOnlyCaughtPokemonsSlice = createSlice({
 	}
 })
 
-export const { switchFlag } = shouldShowOnlyCaughtPokemonsSlice.actions;
+export const { switchShouldShowOnlyCaughtFlag } = shouldShowOnlyCaughtPokemonsSlice.actions;
 export default shouldShowOnlyCaughtPokemonsSlice.reducer;

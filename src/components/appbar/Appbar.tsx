@@ -13,7 +13,7 @@ import { PokemonTypeNames } from "../../constants/constants";
 import { Search, SearchIconWrapper, StyledFormGroup, StyledInputBase, StyledNavLink } from "../../shared/styled-components/StyledComponents";
 import { useAppDispatch, useAppSelector } from "../../store/hooks";
 import { setPokemonSearchString } from "../../store/slices/searchPokemonSlice";
-import { switchFlag } from '../../store/slices/shouldShowOnlyCaughtPokemonsSlice';
+import { switchShouldShowOnlyCaughtFlag } from "../../store/slices/shouldShowOnlyCaughtPokemonsSlice";
 import './Appbar.scss';
 
 
@@ -27,7 +27,7 @@ const Appbar: FunctionComponent = () => {
 	const dispatch = useAppDispatch()
 
 	const handleCheckboxChange = (event: ChangeEvent<HTMLInputElement>) => {
-		dispatch(switchFlag(event.target.checked));
+		dispatch(switchShouldShowOnlyCaughtFlag(event.target.checked));
 		dispatch(setPokemonSearchString(''));
 	}
 
