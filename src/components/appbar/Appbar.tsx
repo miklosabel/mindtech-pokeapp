@@ -10,7 +10,7 @@ import Toolbar from "@mui/material/Toolbar";
 import { ChangeEvent, FunctionComponent, useState } from "react";
 import '../../App.scss';
 import { PokemonTypeNames } from "../../constants/constants";
-import { Search, SearchIconWrapper, StyledFormGroup, StyledInputBase, StyledNavLink } from "../../shared/styled-components/StyledComponents";
+import { AppbarOffset, Search, SearchIconWrapper, StyledFormGroup, StyledInputBase, StyledNavLink } from "../../shared/styled-components/StyledComponents";
 import { useAppDispatch, useAppSelector } from "../../store/hooks";
 import { setPokemonSearchString } from "../../store/slices/searchPokemonSlice";
 import { switchShouldShowOnlyCaughtFlag } from "../../store/slices/shouldShowOnlyCaughtPokemonsSlice";
@@ -69,7 +69,7 @@ const Appbar: FunctionComponent = () => {
 
 	return (
 		<Box sx={{ flexGrow: 1 }}>
-			<AppBar position="static">
+			<AppBar position="fixed">
 				<div className="appbar-container">
 					<Toolbar className='appbar-content'>
 						<Box>
@@ -114,6 +114,7 @@ const Appbar: FunctionComponent = () => {
 				</div>
 			</AppBar>
 			{renderMenu}
+			<AppbarOffset/>
 		</Box>
 	);
 }
