@@ -22,7 +22,6 @@ const PokemonProfileModal: FunctionComponent<PokemonProfileProps> = (props: Poke
 	const isModalOpen = props.selectedPokemon !== ''
 
 	const modalProps = {
-		// children: <></>,
 		isModalOpen,
 		closeModal,
 	}
