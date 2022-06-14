@@ -32,6 +32,7 @@ export const Search = styled("div")(({ theme }) => ({
 	marginRight: theme.spacing(2),
 	marginLeft: theme.spacing(3),
 	paddingRight: theme.spacing(2),
+	width: '50%',
 }));
 
 export const SearchIconWrapper = styled("div")(({ theme }) => ({
@@ -46,10 +47,10 @@ export const SearchIconWrapper = styled("div")(({ theme }) => ({
 
 export const StyledInputBase = styled(InputBase)(({ theme }) => ({
 	color: "inherit",
+	width: '100%',
 	"& .MuiInputBase-input": {
 		paddingLeft: `calc(1em + ${theme.spacing(4)})`,
 		transition: theme.transitions.create("width"),
-		width: "100%",
 	}
 }));
 
