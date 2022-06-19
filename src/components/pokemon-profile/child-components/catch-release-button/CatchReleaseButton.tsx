@@ -1,24 +1,12 @@
 import { Box, Button } from "@mui/material";
-import React from "react";
-import { useAppDispatch, useAppSelector } from "../../../../store/hooks";
-import {
-  catchPokemon,
-  releasePokemon
-} from "../../../../store/slices/caughtPokemonsSlice";
+import useHandlePokemonCatch from "./useHandlePokemonCatch";
 
 interface CatchReleaseButtonProps {
   selectedPokemon: string;
 }
 
 const CatchReleaseButton = (props: CatchReleaseButtonProps) => {
-  const dispatch = useAppDispatch();
-  const caughtPokemons = useAppSelector((state) => state.caughtPokemons);
-
-  const handlePokemonCatch = (pokemonName: string) =>
-    caughtPokemons.includes(pokemonName)
-      ? dispatch(releasePokemon({ pokemonName }))
-      : dispatch(catchPokemon({ pokemonName }));
-
+  const { caughtPokemons, handlePokemonCatch } = useHandlePokemonCatch();
   return (
     <Box sx={{ display: "flex", justifyContent: "center" }}>
       <Button
