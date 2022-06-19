@@ -1,5 +1,5 @@
 import { Typography } from "@mui/material";
-import { StyledHeader } from "../../shared/styled-components/StyledComponents";
+import { StyledHeader } from "../styled-components/StyledComponents";
 
 interface HeaderProps {
   children: string;

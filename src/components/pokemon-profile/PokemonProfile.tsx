@@ -1,8 +1,8 @@
 import { FunctionComponent } from "react";
 import { useGetPokemonDataByNameQuery } from "../../services/services";
+import ErrorComponent from "../../shared/error-component/Error";
 import LoadingSpinner from "../../shared/loading-spinner/LoadingSpinner";
 import UniversalModal, { UniversalModalProps } from "./../../shared/modal/UniversalModal";
-import ErrorComponent from "./../error-component/Error";
 import CatchReleaseButton from "./child-components/catch-release-button/CatchReleaseButton";
 import PokemonData from "./child-components/pokemon-data/PokemonData";
 import PokemonPicture from "./child-components/pokemon-picture/PokemonPicture";

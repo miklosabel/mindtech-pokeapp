@@ -1,9 +1,9 @@
 import { CircularProgress, Grid, Paper } from "@mui/material";
 import { FunctionComponent, useState } from "react";
 import { useGetPokemonListByTypeQuery } from "../../services/services";
+import ErrorComponent from "../../shared/error-component/Error";
+import Header from "../../shared/header/Header";
 import { useAppSelector } from "../../store/hooks";
-import ErrorComponent from "../error-component/Error";
-import Header from "../header/Header";
 import PokemonProfileModal from "../pokemon-profile/PokemonProfile";
 
 interface PokemonListProps {
