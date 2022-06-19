@@ -1,12 +1,12 @@
-import { CircularProgress } from '@mui/material';
-import './LoadingSpinner.scss';
+import { CircularProgress } from "@mui/material";
+import "./LoadingSpinner.scss";
 
 const LoadingSpinner = () => {
-	return (
-		<div className="spinner-container">
-			<CircularProgress />
-		</div>
-	)
-}
+  return (
+    <div className="spinner-container">
+      <CircularProgress />
+    </div>
+  );
+};
 
 export default LoadingSpinner;
