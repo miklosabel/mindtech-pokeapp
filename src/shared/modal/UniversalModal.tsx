@@ -1,17 +1,26 @@
 import { Card, Modal } from "@mui/material";
-import React from "react";
 import { StyledModalBox } from "../styled-components/StyledComponents";
 
 const MODAL_MIN_HEIGHT = 530;
 const MODAL_MIN_WIDTH = 300;
 
-interface UniversalModalProps {
-  children: JSX.Element;
+export interface UniversalModalProps {
+  minHeight?: number;
+  minWidth?: number;
   isModalOpen: boolean;
   closeModal(): void;
+  children?: JSX.Element;
 }
 
-const UniversalModal = (props: UniversalModalProps) => {
+const defaultUniversalModalProps = {
+  minHeight: MODAL_MIN_HEIGHT,
+  minWidth: MODAL_MIN_WIDTH,
+  isModalOpen: false,
+  closeModal: () => {},
+  children: <></>,
+};
+
+const UniversalModal: React.FC<UniversalModalProps> = (props) => {
   return (
     <Modal
       keepMounted
@@ -21,8 +30,8 @@ const UniversalModal = (props: UniversalModalProps) => {
       <StyledModalBox>
         <Card
           sx={{
-            minWidth: MODAL_MIN_WIDTH,
-            minHeight: MODAL_MIN_HEIGHT,
+            minHeight: props.minHeight,
+            minWidth: props.minWidth,
           }}
         >
           {props.children}
@@ -31,5 +40,7 @@ const UniversalModal = (props: UniversalModalProps) => {
     </Modal>
   );
 };
+
+UniversalModal.defaultProps = defaultUniversalModalProps;
 
 export default UniversalModal;

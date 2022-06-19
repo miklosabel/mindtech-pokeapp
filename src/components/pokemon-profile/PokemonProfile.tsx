@@ -1,7 +1,7 @@
 import { FunctionComponent } from "react";
 import { useGetPokemonDataByNameQuery } from "../../services/services";
 import LoadingSpinner from "../../shared/loading-spinner/LoadingSpinner";
-import UniversalModal from "./../../shared/modal/UniversalModal";
+import UniversalModal, { UniversalModalProps } from "./../../shared/modal/UniversalModal";
 import ErrorComponent from "./../error-component/Error";
 import CatchReleaseButton from "./child-components/catch-release-button/CatchReleaseButton";
 import PokemonData from "./child-components/pokemon-data/PokemonData";
@@ -28,7 +28,7 @@ const PokemonProfileModal: FunctionComponent<PokemonProfileProps> = (
   const closeModal = () => props.setSelectedPokemon("");
   const isModalOpen = props.selectedPokemon !== "";
 
-  const modalProps = {
+  const modalProps: UniversalModalProps = {
     isModalOpen,
     closeModal,
   };
