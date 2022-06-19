@@ -1,29 +1,20 @@
 import { CardContent, Typography } from "@mui/material";
 import { PokeAPI } from "pokeapi-types";
-import React from "react";
 import PokemonProfileRow from "./child-components/PokemonProfileRow";
+import useExtractPokemonData from "./useExtractPokemonData";
 
 interface PokemonDataProps {
   pokemonData?: PokeAPI.Pokemon;
 }
 
 const PokemonData = (props: PokemonDataProps) => {
-  const visibleAbilities: string[] = props.pokemonData?.abilities
-    ? props.pokemonData.abilities
-        .filter((ability) => !ability.is_hidden)
-        .map((x) => x.ability.name)
-    : [];
-
-  const pokemonTypes: string[] = props.pokemonData?.types
-    ? props.pokemonData.types.map((typeObject) => typeObject.type.name)
-    : [];
-
-  const pokemonWeight = props.pokemonData?.weight
-    ? props.pokemonData.weight
-    : "";
-  const pokemonHeight = props.pokemonData?.height
-    ? props.pokemonData.height
-    : "";
+  const {
+    visibleAbilities,
+    pokemonTypes,
+    pokemonName,
+    pokemonWeight,
+    pokemonHeight,
+  } = useExtractPokemonData(props.pokemonData);
 
   return (
     <>
@@ -34,7 +25,7 @@ const PokemonData = (props: PokemonDataProps) => {
           component="div"
           sx={{ textAlign: "center" }}
         >
-          {props.pokemonData?.name}
+          {pokemonName}
         </Typography>
         <PokemonProfileRow label="Types" data={pokemonTypes} />
         <PokemonProfileRow label="Weight" data={pokemonWeight} />
