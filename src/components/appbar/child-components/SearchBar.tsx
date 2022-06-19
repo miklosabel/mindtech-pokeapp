@@ -1,9 +1,8 @@
 import SearchIcon from "@mui/icons-material/Search";
 import { ChangeEvent, FunctionComponent } from "react";
 import {
-  Search,
   SearchIconWrapper,
-  StyledInputBase
+  StyledInputBase, StyledSearch
 } from "../../../shared/styled-components/StyledComponents";
 import { useAppDispatch, useAppSelector } from "../../../store/hooks";
 import { setPokemonSearchString } from "../../../store/slices/searchPokemonSlice";
@@ -19,7 +18,7 @@ const SearchBar: FunctionComponent = () => {
     dispatch(setPokemonSearchString(event.target.value));
 
   return (
-    <Search>
+    <StyledSearch>
       <SearchIconWrapper>
         <SearchIcon />
       </SearchIconWrapper>
@@ -29,7 +28,7 @@ const SearchBar: FunctionComponent = () => {
         onChange={handleSearchInputChange}
         value={pokemonSearchString}
       />
-    </Search>
+    </StyledSearch>
   );
 };
 

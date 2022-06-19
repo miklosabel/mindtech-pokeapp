@@ -11,10 +11,10 @@ export const StyledModalBox = styled(Box)(() => ({
 }))
 
 export const StyledHeader = styled("div")`
-	display: flex;
-	justify-content: center;
-	padding-top: 24px;
-	padding-bottom: 24px;
+  display: flex;
+  justify-content: center;
+  padding-top: 24px;
+  padding-bottom: 24px;
 `
 
 export const StyledNavLink = styled(NavLink)(({ theme }) => ({
@@ -22,7 +22,7 @@ export const StyledNavLink = styled(NavLink)(({ theme }) => ({
   color: alpha(theme.palette.common.black, 0.8)
 }));
 
-export const Search = styled("div")(({ theme }) => ({
+export const StyledSearch = styled("div")(({ theme }) => ({
   position: "relative",
   borderRadius: theme.shape.borderRadius,
   backgroundColor: alpha(theme.palette.common.white, 0.15),
