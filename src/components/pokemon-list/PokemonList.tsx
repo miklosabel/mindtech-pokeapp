@@ -1,8 +1,9 @@
-import { CircularProgress, Grid, Paper } from "@mui/material";
+import { Grid, Paper } from "@mui/material";
 import { FunctionComponent, useState } from "react";
 import { useGetPokemonListByTypeQuery } from "../../services/services";
 import ErrorComponent from "../../shared/error-component/Error";
 import Header from "../../shared/header/Header";
+import LoadingSpinner from "../../shared/loading-spinner/LoadingSpinner";
 import { useAppSelector } from "../../store/hooks";
 import PokemonProfileModal from "../pokemon-profile/PokemonProfile";
 
@@ -20,6 +21,7 @@ const PokemonList: FunctionComponent<PokemonListProps> = (
     error,
     isLoading,
   } = useGetPokemonListByTypeQuery(props.pokemonType);
+
   const pokemonNames = pokemonListData?.pokemon.map(
     (pokemon) => pokemon.pokemon.name
   );
@@ -31,6 +33,7 @@ const PokemonList: FunctionComponent<PokemonListProps> = (
   const shouldShowOnlyCaughtPokemons = useAppSelector(
     (state) => state.shouldShowOnlyCaughtPokemons.flag
   );
+
   const pokemonSearchString = useAppSelector(
     (state) => state.searchPokemon.searchString
   );
@@ -74,7 +77,7 @@ const PokemonList: FunctionComponent<PokemonListProps> = (
     return null;
   };
 
-  if (isLoading) return <CircularProgress />;
+  if (isLoading) return <LoadingSpinner />;
   else if (error)
     return (
       <ErrorComponent
