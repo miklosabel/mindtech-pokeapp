@@ -1,6 +1,7 @@
 import { configureStore } from '@reduxjs/toolkit';
 import { pokemonApi } from './../services/services';
 import { caughtPokemonsSlice } from './slices/caughtPokemonsSlice';
+import { profileModalSlice } from './slices/profileModalSlice';
 import { searchPokemonSlice } from './slices/searchPokemonSlice';
 import { shouldShowOnlyCaughtPokemonsSlice } from './slices/shouldShowOnlyCaughtPokemonsSlice';
 
@@ -10,6 +11,7 @@ const store = configureStore({
     caughtPokemons: caughtPokemonsSlice.reducer,
     shouldShowOnlyCaughtPokemons: shouldShowOnlyCaughtPokemonsSlice.reducer,
     searchPokemon: searchPokemonSlice.reducer,
+    profileModal: profileModalSlice.reducer,
   },
   middleware: getDefaultMiddleware => getDefaultMiddleware().concat(pokemonApi.middleware)
 })
