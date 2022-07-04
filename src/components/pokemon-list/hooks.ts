@@ -20,7 +20,7 @@ const usePokemonNameList = (pokemonType: string) => {
     (state) => state.caughtPokemons
   );
   const isCaught = (pokemonName: string): boolean =>
-    caughtPokemons.includes(pokemonName) ? true : false;
+    caughtPokemons.includes(pokemonName)
 
   const shouldShowOnlyCaughtPokemons = useAppSelector(
     (state) => state.shouldShowOnlyCaughtPokemons.flag
