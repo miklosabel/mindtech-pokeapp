@@ -10,4 +10,4 @@ npm install
 
 ```npm start```
 
-The site can be seen at [localhost:3000](https://localhost:3000)
+Navigate to [localhost:3000](https://localhost:3000) in your browser.
