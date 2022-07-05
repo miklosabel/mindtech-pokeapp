@@ -10,7 +10,7 @@ const PokemonNameGrid = (props: PokemonNameGridProps) => {
   return (
     <Grid container spacing={2}>
       {props.items.map((name) => (
-        <Grid item xs={12} sm={6} md={4}>
+        <Grid key={name} item xs={12} sm={6} md={4}>
           <Paper
             onClick={()=>props.openProfile(name)}
             sx={{
