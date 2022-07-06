@@ -1,9 +1,7 @@
 import { PokeAPI } from "pokeapi-types";
 import { useGetPokemonTypesQuery } from "../services/services";
 
-export const useGetPokemonTypes = ():
-  | PokeAPI.NamedAPIResource[]
-  | undefined => {
+export const useGetPokemonTypes = (): PokeAPI.NamedAPIResource[] => {
   const { data } = useGetPokemonTypesQuery();
-  return data?.results;
+  return data ? data.results : [{ name: "", url: "" }];
 };

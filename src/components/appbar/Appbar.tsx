@@ -1,13 +1,15 @@
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
+import { PokeAPI } from "pokeapi-types";
 import { FunctionComponent, useState } from "react";
 import "../../App.scss";
+import { useGetPokemonTypes } from "../../shared/getPokemonTypesHook";
+import MenuDropdown from "../../shared/menu-dropdown/MenuDropDown";
 import { AppbarOffset } from "../../shared/styled-components/StyledComponents";
 import "./Appbar.scss";
 import AppbarMenuIcon from "./child-components/AppbarMenuIcon";
 import CaughtPokemonsCheckbox from "./child-components/CaughtPokemonsCheckbox";
-import MenuDropdown from "./child-components/MenuDropDown";
 import SearchBar from "./child-components/SearchBar";
 
 const Appbar: FunctionComponent = () => {
@@ -19,7 +21,10 @@ const Appbar: FunctionComponent = () => {
 
   const handleMenuClose = () => setAnchorEl(null);
 
-  const menuDropdownProps = { anchorEl, isMenuOpen, handleMenuClose };
+  const pokemonTypes: PokeAPI.NamedAPIResource[] = useGetPokemonTypes();
+  const menuItems: string[] = pokemonTypes.map(type => type.name)
+
+  const menuDropdownProps = { anchorEl, isMenuOpen, handleMenuClose, menuItems };
 
   return (
     <Box sx={{ flexGrow: 1 }}>
