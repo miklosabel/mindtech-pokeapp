@@ -1,12 +1,14 @@
-import React from "react";
+import { PokeAPI } from "pokeapi-types";
 import { Route, Routes } from "react-router-dom";
 import "./App.scss";
 import Appbar from "./components/appbar/Appbar";
 import PokemonList from "./components/pokemon-list/PokemonList";
-import { PokemonTypeNames } from "./constants/constants";
+import { useGetPokemonTypes } from "./shared/getPokemonTypesHook";
 import Header from "./shared/header/Header";
 
 function App(): JSX.Element {
+  const pokemonTypes = useGetPokemonTypes();
+
   return (
     <div className="App">
       <Appbar />
@@ -17,13 +19,16 @@ function App(): JSX.Element {
             path="/"
             element={<Header>Welcome to my pokeapp!</Header>}
           />
-          {PokemonTypeNames.map((pokemonType) => (
-            <Route
-              key={pokemonType}
-              path={"/" + pokemonType}
-              element={<PokemonList pokemonType={pokemonType} />}
-            />
-          ))}
+          {pokemonTypes &&
+            pokemonTypes.map(
+              ({ name: pokemonType }: PokeAPI.NamedAPIResource) => (
+                <Route
+                  key={pokemonType}
+                  path={"/" + pokemonType}
+                  element={<PokemonList pokemonType={pokemonType} />}
+                />
+              )
+            )}
         </Routes>
       </div>
     </div>

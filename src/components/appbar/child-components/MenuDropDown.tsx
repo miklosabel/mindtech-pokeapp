@@ -1,5 +1,5 @@
 import { Menu, MenuItem } from "@mui/material";
-import { PokemonTypeNames } from "../../../constants/constants";
+import { useGetPokemonTypes } from "../../../shared/getPokemonTypesHook";
 import { StyledNavLink } from "../../../shared/styled-components/StyledComponents";
 
 interface MenuDropdownProps {
@@ -8,29 +8,34 @@ interface MenuDropdownProps {
   handleMenuClose(): void;
 }
 
-const MenuDropdown = (props: MenuDropdownProps) => (
-  <Menu
-    anchorEl={props.anchorEl}
-    anchorOrigin={{
-      vertical: "bottom",
-      horizontal: "left",
-    }}
-    keepMounted
-    transformOrigin={{
-      vertical: "top",
-      horizontal: "left",
-    }}
-    open={props.isMenuOpen}
-    onClose={props.handleMenuClose}
-  >
-    {PokemonTypeNames.map((typeName) => (
-      <StyledNavLink key={typeName} to={"/" + typeName}>
-        <MenuItem key={typeName} onClick={props.handleMenuClose}>
-          {typeName}
-        </MenuItem>
-      </StyledNavLink>
-    ))}
-  </Menu>
-);
+const MenuDropdown = (props: MenuDropdownProps) => {
+  const menuItems = useGetPokemonTypes();
+
+  return (
+    <Menu
+      anchorEl={props.anchorEl}
+      anchorOrigin={{
+        vertical: "bottom",
+        horizontal: "left",
+      }}
+      keepMounted
+      transformOrigin={{
+        vertical: "top",
+        horizontal: "left",
+      }}
+      open={props.isMenuOpen}
+      onClose={props.handleMenuClose}
+    >
+      {menuItems &&
+        menuItems.map(({ name: typeName }) => (
+          <StyledNavLink key={typeName} to={"/" + typeName}>
+            <MenuItem key={typeName} onClick={props.handleMenuClose}>
+              {typeName}
+            </MenuItem>
+          </StyledNavLink>
+        ))}
+    </Menu>
+  );
+};
 
 export default MenuDropdown;
