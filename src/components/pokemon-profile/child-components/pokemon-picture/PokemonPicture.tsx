@@ -1,17 +1,20 @@
 import { CardMedia } from "@mui/material";
-import React from "react";
+import { FunctionComponent } from "react";
 
 interface PokemonPictureProps {
   imageSource: string;
   alt: string;
 }
 
-const PokemonPicture = (props: PokemonPictureProps) => {
+const PokemonPicture: FunctionComponent<PokemonPictureProps> = ({
+  imageSource,
+  alt,
+}) => {
   return (
     <CardMedia
       component="img"
-      image={props.imageSource}
-      alt={props.alt}
+      image={imageSource}
+      alt={alt}
       sx={{
         minWidth: 250,
         minHeight: 250,

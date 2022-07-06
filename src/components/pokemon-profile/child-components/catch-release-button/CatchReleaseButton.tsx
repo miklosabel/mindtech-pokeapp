@@ -1,11 +1,14 @@
 import { Box, Button } from "@mui/material";
+import { FunctionComponent } from "react";
 import useHandlePokemonCatch from "./useHandlePokemonCatch";
 
 interface CatchReleaseButtonProps {
   selectedPokemon: string;
 }
 
-const CatchReleaseButton = (props: CatchReleaseButtonProps) => {
+const CatchReleaseButton: FunctionComponent<CatchReleaseButtonProps> = ({
+  selectedPokemon,
+}) => {
   const { caughtPokemons, handlePokemonCatch } = useHandlePokemonCatch();
   return (
     <Box sx={{ display: "flex", justifyContent: "center" }}>
@@ -13,9 +16,9 @@ const CatchReleaseButton = (props: CatchReleaseButtonProps) => {
         size="large"
         variant="outlined"
         sx={{ margin: 1 }}
-        onClick={() => handlePokemonCatch(props.selectedPokemon)}
+        onClick={() => handlePokemonCatch(selectedPokemon)}
       >
-        {caughtPokemons.includes(props.selectedPokemon) ? "Release" : "Catch"}
+        {caughtPokemons.includes(selectedPokemon) ? "Release" : "Catch"}
       </Button>
     </Box>
   );

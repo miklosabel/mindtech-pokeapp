@@ -8,9 +8,14 @@ export interface MenuDropdownProps {
   menuItems: string[];
 }
 
-const MenuDropdown = (props: MenuDropdownProps) => (
+const MenuDropdown = ({
+  anchorEl,
+  isMenuOpen,
+  handleMenuClose,
+  menuItems,
+}: MenuDropdownProps) => (
   <Menu
-    anchorEl={props.anchorEl}
+    anchorEl={anchorEl}
     anchorOrigin={{
       vertical: "bottom",
       horizontal: "left",
@@ -20,13 +25,13 @@ const MenuDropdown = (props: MenuDropdownProps) => (
       vertical: "top",
       horizontal: "left",
     }}
-    open={props.isMenuOpen}
-    onClose={props.handleMenuClose}
+    open={isMenuOpen}
+    onClose={handleMenuClose}
   >
-    {props.menuItems &&
-      props.menuItems.map((item) => (
+    {menuItems &&
+      menuItems.map((item) => (
         <StyledNavLink key={item} to={"/" + item}>
-          <MenuItem key={item} onClick={props.handleMenuClose}>
+          <MenuItem key={item} onClick={handleMenuClose}>
             {item}
           </MenuItem>
         </StyledNavLink>

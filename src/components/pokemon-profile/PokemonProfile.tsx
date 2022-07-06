@@ -17,12 +17,18 @@ export interface PokemonProfileProps {
   setSelectedPokemon: (pokemonName: string) => void;
 }
 
-const PokemonProfileModal: FunctionComponent<PokemonProfileProps> = (props) => {
+const PokemonProfileModal: FunctionComponent<PokemonProfileProps> = ({
+  selectedPokemon,
+  setSelectedPokemon,
+}) => {
   const { pokemonData, error, isLoading, profilePicture } =
-    useLoadProfileData(props.selectedPokemon);
+    useLoadProfileData(selectedPokemon);
 
   const errorComponentCustomStyle = useErrorComponentCustomStyle();
-  const modalProps: UniversalModalProps = useModalProps({ ...props });
+  const modalProps: UniversalModalProps = useModalProps({
+    selectedPokemon,
+    setSelectedPokemon,
+  });
 
   if (isLoading) {
     return (
@@ -49,7 +55,7 @@ const PokemonProfileModal: FunctionComponent<PokemonProfileProps> = (props) => {
             alt={`profile image of ${pokemonData?.name}`}
           />
           <PokemonData pokemonData={pokemonData} />
-          <CatchReleaseButton selectedPokemon={props.selectedPokemon} />
+          <CatchReleaseButton selectedPokemon={selectedPokemon} />
         </>
       </UniversalModal>
     );

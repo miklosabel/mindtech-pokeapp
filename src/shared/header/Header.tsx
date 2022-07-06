@@ -1,11 +1,12 @@
 import { Typography } from "@mui/material";
+import { FunctionComponent } from "react";
 import { StyledHeader } from "../styled-components/StyledComponents";
 
 interface HeaderProps {
   children: string;
 }
 
-const Header = (props: HeaderProps) => (
+const Header: FunctionComponent<HeaderProps> = ({ children }) => (
   <>
     <StyledHeader>
       <Typography
@@ -17,7 +18,7 @@ const Header = (props: HeaderProps) => (
           marginBottom: 2,
         }}
       >
-        {props.children}
+        {children}
       </Typography>
     </StyledHeader>
   </>

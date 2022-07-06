@@ -1,4 +1,5 @@
 import { Card, Modal } from "@mui/material";
+import { FunctionComponent } from "react";
 import { StyledModalBox } from "../styled-components/StyledComponents";
 
 const MODAL_MIN_HEIGHT = 530;
@@ -20,21 +21,23 @@ const defaultUniversalModalProps = {
   children: <></>,
 };
 
-const UniversalModal: React.FC<UniversalModalProps> = (props) => {
+const UniversalModal: FunctionComponent<UniversalModalProps> = ({
+  minHeight,
+  minWidth,
+  isModalOpen,
+  closeModal,
+  children,
+}) => {
   return (
-    <Modal
-      keepMounted
-      open={props.isModalOpen}
-      onClose={() => props.closeModal()}
-    >
+    <Modal keepMounted open={isModalOpen} onClose={() => closeModal()}>
       <StyledModalBox>
         <Card
           sx={{
-            minHeight: props.minHeight,
-            minWidth: props.minWidth,
+            minHeight: minHeight,
+            minWidth: minWidth,
           }}
         >
-          {props.children}
+          {children}
         </Card>
       </StyledModalBox>
     </Modal>

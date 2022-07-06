@@ -10,11 +10,7 @@ interface PokemonListProps {
   pokemonType: string;
 }
 
-
-
-const PokemonList: FunctionComponent<PokemonListProps> = (
-  props: PokemonListProps
-) => {
+const PokemonList: FunctionComponent<PokemonListProps> = ({ pokemonType }) => {
   const {
     selectedPokemon,
     setSelectedPokemon,
@@ -26,7 +22,7 @@ const PokemonList: FunctionComponent<PokemonListProps> = (
     shouldShowOnlyCaughtPokemons,
     headerText,
     applySearch,
-  } = usePokemonNameList(props.pokemonType);
+  } = usePokemonNameList(pokemonType);
 
   if (isLoading) return <LoadingSpinner />;
   else if (error)

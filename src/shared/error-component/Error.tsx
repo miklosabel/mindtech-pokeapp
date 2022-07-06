@@ -1,4 +1,5 @@
 import { Alert, AlertTitle } from "@mui/material";
+import { FunctionComponent } from "react";
 
 interface ErrorComponentProps {
   title: string;
@@ -6,11 +7,15 @@ interface ErrorComponentProps {
   style?: React.CSSProperties;
 }
 
-const ErrorComponent = (props: ErrorComponentProps) => (
-  <div style={props.style}>
+const ErrorComponent: FunctionComponent<ErrorComponentProps> = ({
+  title,
+  text,
+  style,
+}) => (
+  <div style={style}>
     <Alert severity="error">
-      <AlertTitle>{props.title}</AlertTitle>
-      {props.text}
+      <AlertTitle>{title}</AlertTitle>
+      {text}
     </Alert>
   </div>
 );
