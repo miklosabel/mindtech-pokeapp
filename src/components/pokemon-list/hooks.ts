@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useGetPokemonListByTypeQuery } from "../../services/services";
 import { useAppSelector } from "../../store/hooks";
-
+import { RootState } from "../../store/store";
 
 const usePokemonNameList = (pokemonType: string) => {
   const [selectedPokemon, setSelectedPokemon] = useState<string>("");
@@ -17,17 +17,17 @@ const usePokemonNameList = (pokemonType: string) => {
     : [];
 
   const caughtPokemons: string[] = useAppSelector(
-    (state) => state.caughtPokemons
+    (state: RootState) => state.caughtPokemons
   );
   const isCaught = (pokemonName: string): boolean =>
-    caughtPokemons.includes(pokemonName)
+    caughtPokemons.includes(pokemonName);
 
   const shouldShowOnlyCaughtPokemons = useAppSelector(
-    (state) => state.shouldShowOnlyCaughtPokemons.flag
+    (state: RootState) => state.shouldShowOnlyCaughtPokemons.flag
   );
 
   const pokemonSearchString = useAppSelector(
-    (state) => state.searchPokemon.searchString
+    (state: RootState) => state.searchPokemon.searchString
   );
 
   const headerText = shouldShowOnlyCaughtPokemons
