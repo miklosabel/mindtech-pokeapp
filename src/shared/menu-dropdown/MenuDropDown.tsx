@@ -1,7 +1,7 @@
 import { Menu, MenuItem } from "@mui/material";
 import { StyledNavLink } from "../styled-components/StyledComponents";
 
-interface MenuDropdownProps {
+export interface MenuDropdownProps {
   anchorEl: null | HTMLElement;
   isMenuOpen: boolean;
   handleMenuClose(): void;
