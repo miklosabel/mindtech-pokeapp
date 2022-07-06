@@ -5,14 +5,16 @@ import { FunctionComponent } from "react";
 import "../../App.scss";
 import MenuDropdown from "../../shared/menu-dropdown/MenuDropDown";
 import AppbarMenuIcon from "../../shared/menu-icon/AppbarMenuIcon";
+import SearchBar from "../../shared/search-bar/SearchBar";
 import { AppbarOffset } from "../../shared/styled-components/StyledComponents";
 import "./Appbar.scss";
 import CaughtPokemonsCheckbox from "./child-components/CaughtPokemonsCheckbox";
-import SearchBar from "./child-components/SearchBar";
+import { useHandleSearchBar } from "./hooks/useHandleSearchBar";
 import { useMenuData } from "./hooks/useMenuData";
 
 const Appbar: FunctionComponent = () => {
   const { handleMenuOpen, ...menuDropdownProps } = useMenuData();
+  const { ...searchBarProps } = useHandleSearchBar();
 
   return (
     <Box sx={{ flexGrow: 1 }}>
@@ -21,7 +23,7 @@ const Appbar: FunctionComponent = () => {
           <Toolbar className="appbar-content">
             <AppbarMenuIcon handleMenuOpen={handleMenuOpen} />
             <Box sx={{ flexGrow: 1 }} />
-            <SearchBar />
+            <SearchBar {...searchBarProps} />
             <Box sx={{ flexGrow: 1 }} />
             <CaughtPokemonsCheckbox />
           </Toolbar>
